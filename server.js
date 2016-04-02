@@ -10,12 +10,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /************
  * DATABASE *
  ************/
-
-// var db = require('./models');
+var db = require('./models');
 
 /**********
  * ROUTES *
  **********/
+
+app.get('/profile', function (req, res) {
+  db.Profile.find({}, function (err, profile){
+    if (err) {
+      res.status(500).json('error');
+    }
+    res.status(200).json(profile);
+    console.log(profile);
+  });
+});
 
 // Serve static files from the `/public` directory:
 // i.e. `/images`, `/scripts`, `/styles`
@@ -46,7 +55,7 @@ app.get('/api', function api_index(req, res) {
       {method: "GET", path: "/api/profile", description: "Data about me"}, // CHANGE ME
       {method: "POST", path: "/api/campsites", description: "E.g. Create a new campsite"} // CHANGE ME
     ]
-  })
+  });
 });
 
 /**********
