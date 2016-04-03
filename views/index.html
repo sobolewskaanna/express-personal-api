@@ -16,6 +16,10 @@
 
     <!-- APPLICATION SCRIPTS -->
     <script src="/scripts/app.js"></script>
+
+    <!-- HANDLEBARS -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
   </head>
   <body>
     <div class="container">
@@ -23,8 +27,17 @@
         <div class="col-md-8 col-md-offset-2">
           <h1>Under Construction</h1>
           <h4><a href="/api">Read My API Documentation</a></h4>
-        </div>
       </div>
+    </div>
+    <div id="profiles">
+      <script id="profiles-template" type="text/x-handlebars-template">
+        {{#each profiles}}
+          <img src='{{github_profile_image}}'>
+          <p>Name: {{name}}</p>
+          <p>Current City: {{current_city}} </p>
+          <p>Github Link: {{github_link}} </p>
+        {{/each}}
+      </script>
     </div>
   </body>
 </html>
