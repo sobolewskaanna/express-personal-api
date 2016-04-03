@@ -31,13 +31,32 @@ var new_profile = {
   ]
 };
 
-db.Profile.remove({}, function (err, profile) {
+var new_restaurant = {
+  name: "Long Bridge Pizza Co.",
+  location: "Dogpatch",
+  starRating: "4 Starts",
+  website: "sssss"
+};
+
+db.Profile.remove({}, function (err, profiles) {
+  console.log('removed all profiles');
   db.Profile.create(new_profile, function (err, profile){
-      if (err) {
-        console.log("Error", err);
-      } else {
-        console.log("Created new profile", profile._id);
-      }
-      process.exit();
+    if (err) {
+      console.log("Error", err);
+    } else {
+      console.log("Created new profile", profile._id);
+    }
+    
+    db.Restaurant.remove({}, function (err, restaurants) {
+      console.log("removed all restaurants");
+      db.Restaurant.create(new_restaurant, function (err, restaurant) {
+        if (err) {
+          console.log("Error", err);
+        } else {
+          console.log("Created new restaurant", restaurant._id);
+        }
+        process.exit();
+      });
+    });
   });
 });

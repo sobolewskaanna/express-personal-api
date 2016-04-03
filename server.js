@@ -16,15 +16,26 @@ var db = require('./models');
  * ROUTES *
  **********/
 
+//get my profile
 app.get('/profile', function (req, res) {
-  db.Profile.find({}, function (err, profile){
+  db.Profile.find({}, function (err, profiles){
     if (err) {
       res.status(500).json('error');
     }
-    res.status(200).json(profile);
-    console.log(profile);
+    res.status(200).json(profiles);
   });
 });
+
+//get a list of all restaurants
+app.get('/restaurants', function (req, res) {
+  db.Restaurant.find({}, function (err, restaurants) {
+    if (err) {
+      res.status(500).json('error');
+    }
+    res.status(200).json(restaurants);
+  });
+});
+
 
 // Serve static files from the `/public` directory:
 // i.e. `/images`, `/scripts`, `/styles`
