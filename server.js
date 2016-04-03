@@ -10,32 +10,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /************
  * DATABASE *
  ************/
+
 var db = require('./models');
 
 /**********
  * ROUTES *
  **********/
-
-//get my profile
-app.get('/profile', function (req, res) {
-  db.Profile.find({}, function (err, profiles){
-    if (err) {
-      res.status(500).json('error');
-    }
-    res.status(200).json(profiles);
-  });
-});
-
-//get a list of all restaurants
-app.get('/restaurants', function (req, res) {
-  db.Restaurant.find({}, function (err, restaurants) {
-    if (err) {
-      res.status(500).json('error');
-    }
-    res.status(200).json(restaurants);
-  });
-});
-
 
 // Serve static files from the `/public` directory:
 // i.e. `/images`, `/scripts`, `/styles`
@@ -54,17 +34,51 @@ app.get('/', function homepage(req, res) {
  * JSON API Endpoints
  */
 
+ //get my profile
+ app.get('/profiles', function (req, res) {
+   db.Profile.find({}, function (err, profiles){
+     if (err) {
+       res.status(500).json('error');
+     }
+     res.status(200).json(profiles);
+   });
+ });
+
+ //get a list of all restaurants
+ app.get('/restaurants', function (req, res) {
+   db.Restaurant.find({}, function (err, restaurants) {
+     if (err) {
+       res.status(500).json('error');
+     }
+     res.status(200).json(restaurants);
+   });
+ });
+
+ //create a new restaurant
+ app.post('/restaurants', function (req, rest) {
+   var newRestaurant = new db.Restaurant({
+     name: req.body.name,
+     location:req.body.location,
+     rating: req.body.rating
+   });
+   newRestaurant.save(function (err, restaurant) {
+     res.json(restaurant);
+   });
+ });
+
+
+
 app.get('/api', function api_index(req, res) {
   // TODO: Document all your api endpoints below
   res.json({
-    woops_i_has_forgot_to_document_all_my_endpoints: true, // CHANGE ME ;)
+    documented_all_my_endpoints: true, // CHANGE ME ;)
     message: "Welcome to my personal api! Here's what you need to know!",
-    documentation_url: "https://github.com/example-username/express_self_api/README.md", // CHANGE ME
-    base_url: "http://YOUR-APP-NAME.herokuapp.com", // CHANGE ME
+    documentation_url: "https://github.com/sobolewskaanna/express-personal-api",
+    base_url: "http://strawberry-pudding-50629.herokuapp.com",
     endpoints: [
-      {method: "GET", path: "/api", description: "Describes all available endpoints"},
-      {method: "GET", path: "/api/profile", description: "Data about me"}, // CHANGE ME
-      {method: "POST", path: "/api/campsites", description: "E.g. Create a new campsite"} // CHANGE ME
+      {method: "GET", path: "/", description: "Describes all available endpoints"},
+      {method: "GET", path: "/profiles", description: "Data about me"},
+      {method: "POST", path: "/restaurants", description: "Data about restaurants"}
     ]
   });
 });

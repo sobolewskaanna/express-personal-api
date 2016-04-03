@@ -40,6 +40,16 @@
       </script>
     </div>
 
+    <div id="restaurants">
+      <script id="restaurants-template" type="text/x-handlebars-template">
+        {{#each restaurants}}
+          <p>Name: {{name}}</p>
+          <p>Neighborhood: {{location}} </p>
+          <p>Yelp Rating: {{yelpRating}} </p>
+        {{/each}}
+      </script>
+    </div>
+
     <form class="form-inline" id="newRestaurantForm">
       <div class="form-group">
         <label for="title">Restaurant Name</label>

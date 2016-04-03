@@ -4,8 +4,7 @@ var mongoose = require('mongoose'),
 var RestaurantSchema = new Schema({
   name: String,
   location: String,
-  starRating: String,
-  website: String
+  rating: String
 });
 
 var Restaurant = mongoose.model('Restaurant', RestaurantSchema);

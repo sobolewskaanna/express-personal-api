@@ -31,12 +31,23 @@ var new_profile = {
   ]
 };
 
-var new_restaurant = {
-  name: "Long Bridge Pizza Co.",
-  location: "Dogpatch",
-  starRating: "4 Starts",
-  website: "sssss"
-};
+var new_restaurant = [
+  {
+    name: "Long Bridge Pizza",
+    location: "Dogpatch",
+    rating: "4.5 Starts"
+  },
+  {
+    name: "Tony’s Pizza Napoletana",
+    location: "North Beach",
+    rating: "4 Stars"
+  },
+  {
+    name: "Nopalito",
+    location: "Lower Haight",
+    rating: "4 Stars"
+  }
+];
 
 db.Profile.remove({}, function (err, profiles) {
   console.log('removed all profiles');
@@ -46,7 +57,7 @@ db.Profile.remove({}, function (err, profiles) {
     } else {
       console.log("Created new profile", profile._id);
     }
-    
+
     db.Restaurant.remove({}, function (err, restaurants) {
       console.log("removed all restaurants");
       db.Restaurant.create(new_restaurant, function (err, restaurant) {
