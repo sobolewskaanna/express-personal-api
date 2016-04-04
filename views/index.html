@@ -30,6 +30,7 @@
       </div>
     </div>
     <div id="profiles">
+      <h2>About Me:</h2>
       <script id="profiles-template" type="text/x-handlebars-template">
         {{#each profiles}}
           <img src='{{github_profile_image}}'>
@@ -40,24 +41,30 @@
       </script>
     </div>
 
+    <h3>My Favorite Restaurants</h3>
+    <p>This is a list of my favorite restaurants in San Francisco.</p>
     <div id="restaurants">
       <script id="restaurants-template" type="text/x-handlebars-template">
         {{#each restaurants}}
           <p>Name: {{name}}</p>
           <p>Neighborhood: {{location}} </p>
-          <p>Yelp Rating: {{yelpRating}} </p>
+          <p>Yelp Rating: {{rating}} </p>
         {{/each}}
       </script>
     </div>
 
     <form class="form-inline" id="newRestaurantForm">
       <div class="form-group">
-        <label for="title">Restaurant Name</label>
-        <input type="text" class="form-control" name="title" placeholder="Restaurant Name">
+        <label for="name">Restaurant Name</label>
+        <input type="text" class="form-control" name="name" placeholder="Restaurant Name">
       </div>
       <div class="form-group">
-        <label for="title">SF Neighborhood</label>
-        <input type="text" class="form-control" name="author" placeholder="Location">
+        <label for="location">SF Neighborhood</label>
+        <input type="text" class="form-control" name="location" placeholder="Location">
+      </div>
+      <div class="form-group">
+        <label for="rating">Rating</label>
+        <input type="text" class="form-control" name="rating" placeholder="Rating">
       </div>
       <button type="submit" class="btn btn-default">Create Restaurant</button>
     </form>

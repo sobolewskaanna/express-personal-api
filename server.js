@@ -55,14 +55,27 @@ app.get('/', function homepage(req, res) {
  });
 
  //create a new restaurant
- app.post('/restaurants', function (req, rest) {
+ app.post('/restaurants', function (req, res) {
    var newRestaurant = new db.Restaurant({
      name: req.body.name,
      location:req.body.location,
      rating: req.body.rating
    });
    newRestaurant.save(function (err, restaurant) {
-     res.json(restaurant);
+     if (err) {
+       res.send('err');
+     } else {
+       res.json(restaurant);
+     }
+   });
+ });
+
+ //delete a restaurant
+ app.delete('restaurants/:id', function (req, res) {
+   var restaurantId = req.params.id;
+
+   db.Restaurant.findOneAndRemove({_id: restaurantId}, function (err, deletedRestaurant) {
+     res.json(deletedRestaurant);
    });
  });
 
@@ -71,7 +84,7 @@ app.get('/', function homepage(req, res) {
 app.get('/api', function api_index(req, res) {
   // TODO: Document all your api endpoints below
   res.json({
-    documented_all_my_endpoints: true, // CHANGE ME ;)
+    documented_all_my_endpoints: true,
     message: "Welcome to my personal api! Here's what you need to know!",
     documentation_url: "https://github.com/sobolewskaanna/express-personal-api",
     base_url: "http://strawberry-pudding-50629.herokuapp.com",

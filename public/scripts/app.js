@@ -7,6 +7,7 @@ $(document).ready(function(){
   //restaurants template
   var restaurantsSource   = $("#restaurants-template").html();
   var restaurantsTemplate = Handlebars.compile(restaurantsSource);
+  var allRestaurants = [];
 
   $.ajax({
     method: 'GET',
@@ -34,8 +35,28 @@ $(document).ready(function(){
   });
 
   function onRestaurantSuccess(data) {
+    allRestaurants = data;
     var restaurantsHTML = restaurantsTemplate({restaurants: data});
-    $('#restaurants').append(restauratsHTML);
+    $('#restaurants').append(restaurantsHTML);
   }
 
+  $('#newRestaurantForm').on('submit', function (event){
+    event.preventDefault();
+    $.ajax({
+      method: 'POST',
+      url: '/restaurants',
+      data: $(this).serialize(),
+      success: newRestaurantSuccess,
+      error: onError
+    });
+
+    function newRestaurantSuccess(data) {
+      $('#newRestaurantForm input').val('');
+      allRestaurants.push(data);
+
+      $('#restaurants').empty();
+      var restaurantsHTML = restaurantsTemplate({restaurants: allRestaurants});
+      $('#restaurants').append(restaurantsHTML);
+    }
+  });
 });

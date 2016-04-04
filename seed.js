@@ -31,7 +31,7 @@ var new_profile = {
   ]
 };
 
-var new_restaurant = [
+var new_restaurants = [
   {
     name: "Long Bridge Pizza",
     location: "Dogpatch",
@@ -60,11 +60,11 @@ db.Profile.remove({}, function (err, profiles) {
 
     db.Restaurant.remove({}, function (err, restaurants) {
       console.log("removed all restaurants");
-      db.Restaurant.create(new_restaurant, function (err, restaurant) {
+      db.Restaurant.create(new_restaurants, function (err, restaurants) {
         if (err) {
           console.log("Error", err);
         } else {
-          console.log("Created new restaurant", restaurant._id);
+          console.log("Created new restaurants", restaurants);
         }
         process.exit();
       });
